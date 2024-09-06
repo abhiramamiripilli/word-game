@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+          @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Protest Guerrilla", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .container{
+            background: radial-gradient(#704900, #462300);
+            width: 100%;
+            min-height: 100vh;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            /* padding: 10px; */
+        }
+        .word-container{
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            padding: 5px;
+            border: 15px ridge #2a1501;
+            background-color: #000000;
+
+        }
+        .word-container .word{
+            flex: 1;
+            min-width: 50px;
+            height: 50px;
+          background-color: #462300;
+          box-shadow: inset 3px 3px 30px #0b0600;
+          border-radius: 10px;
+          font-size: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #b48327;
+          border: 5px ridge #2a1501;
+        }
+        .random-word{
+            font-size: 2rem;
+            margin-top: 20px;
+            letter-spacing: 4px;
+             text-shadow: 2px 2px 0px #000000;
+             color: #b46f00;
+             border: 5px ridge #d27f02;
+             padding: 5px 50px;
+             border-radius: 100px;
+        }
+        .letter-container{
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            width: 100%;
+            border: 15px ridge #2a1501;
+            /* gap: ; */
+            margin-top: 20px;
+        }
+        .letter-container .letter{
+            height: 60px;
+            border: 5px ridge #462300;
+            box-shadow: inset 3px 3px 10px #462300, inset 6px 6px 15px #180c00;
+            background-color: #6f3a05;
+            font-size: 2rem;
+            color: #f0a259;
+            cursor: pointer;
+            text-shadow: 2px 2px 0px #000000;
+        }
+        .letter:active, .icon:active{
+            transform: scale(0.9);
+            box-shadow: inset 3px 3px 10px #2a1501, inset 6px 6px 45px #000000;
+            color: #944800;
+            
+        }
+        .icons{
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .icon{
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background-color: #d1931e;
+            color: #3d1d00;
+            padding: 10px;
+            /* text-shadow: 1px 1px 0px #000000; */
+            border-radius: 100px;
+            /* border: 5px groove #462300; */
+            box-shadow: inset 3px 3px 10px #d76d03, inset 6px 6px 15px #a05000, 2px 2px 0px #180c00, 5px 5px 0px #2a1501;
+        }
+    </style>
+</head>
+<body>
+   <section class="container">
+    <div class="word-container">
+        <div class="word">W</div>
+        <div class="word">O</div>
+        <div class="word">R</div>
+        <div class="word">D</div>
+    </div>
+    <div class="random-word">
+        <h1 id="word">INDIA</h1>
+    </div>
+
+    <div class="letter-container">
+        <button class="letter" onclick="playletter()"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button><button class="letter"></button>
+       </div>
+
+       <div class="icons">
+        <button class="icon" onclick="displayButtons()"><i class="fa-solid fa-rotate-right"></i></button>
+        <button class="icon" onclick="stopgame()"><i class="fa-solid fa-pause" id="playpause"></i></button>
+        <button class="icon" onclick="displayRandomWords()"><i class="fa-regular fa-face-rolling-eyes"></i></button>
+        <button class="icon" onclick="goback()"><i class="fa-solid fa-arrow-left"></i></button>
+       </div>
+   </section>
+
+
+   <script>
+    var word = document.getElementById('word')
+    var letters = document.querySelectorAll('.letter');
+    const playpauseicon = document.getElementById('playpause');
+    var allLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    const randomWords = [
+    'blue', 'fire', 'gold', 'dark', 'moon', 'star', 'wolf', 'rose', 
+    'wind', 'tree', 'bear', 'rain', 'snow', 'bird', 'lion', 'fish', 
+    'hawk', 'frog', 'deer', 'rock', 'sand', 'dust', 'leaf', 'wave', 
+    'wood', 'seed', 'mist', 'clay', 'bone', 'iron', 'jade', 'rice', 
+    'echo', 'horn', 'coal', 'root', 'palm', 'hive', 'cave', 'foam', 
+    'lava', 'dust', 'moss', 'flax', 'reef', 'fern', 'pine', 'vine', 
+    'wave', 'bark', 'nest', 'cane', 'reed', 'twig', 'wing', 'beak', 
+    'claw', 'fang', 'hoop', 'link', 'loop', 'grid', 'mesh', 'knot', 
+    'arch', 'bend', 'rift', 'glen', 'grove', 'hill', 'peak', 'ridge', 
+    'cape', 'cliff', 'dune', 'mesa', 'plow', 'pond', 'rift', 'spit', 
+    'gale', 'eddy', 'veil', 'halo', 'whip', 'belt', 'robe', 'cape', 
+    'mask', 'veil', 'ring', 'lamp', 'lens', 'glow', 'beam', 'heat', 
+    'fire', 'cold', 'smog', 'haze', 'soot', 'rust', 'slab', 'rock', 
+    'tile', 'ring', 'disk', 'axis', 'gyro', 'bolt', 'nail', 'hook', 
+    'tack', 'pipe', 'tube', 'wire', 'cord', 'rope', 'knot', 'seal', 
+    'cork', 'plug', 'cap', 'knob', 'rung', 'brim', 'edge', 'base', 
+    'root', 'stem', 'leaf', 'bark', 'twig', 'bud', 'seed', 'sack', 
+    'rack', 'bin', 'tank', 'tray', 'mold', 'form', 'cast', 'mold', 
+    'helm', 'gear', 'jolt', 'buzz', 'zing', 'snap', 'clap', 'thud', 
+    'bump', 'ping', 'ring', 'beep', 'boop', 'chirp', 'click', 'clop', 
+    'pop', 'crash', 'bang', 'blip', 'flip', 'clap', 'snap', 'tang', 
+    'tick', 'buzz', 'hush', 'woof', 'meow', 'bark', 'chirp', 'hoot', 
+    'roar', 'growl', 'grunt', 'bleat', 'quack', 'neigh', 'bray', 
+    'moan', 'wail', 'croak', 'chirp', 'peep', 'squeak', 'click', 
+    'honk', 'buzz', 'hum', 'whir', 'chime', 'gong', 'clang', 'bong'
+];
+
+
+   function displayButtons(){
+    letters.forEach(button1 =>{
+        button1.innerText = ''
+    })
+    letters.forEach(button => {
+        button.addEventListener("click", () => {
+            audio.play();
+        });
+        if(button.innerText == ""){
+            let num =Math.round(Math.random()*allLetters.length-1)
+           if(num>=0 && num<=allLetters.length){
+            button.innerText = allLetters[num];
+           }
+        }
+        });
+   }
+   displayButtons();
+
+
+     var audio = new Audio("./assets/media/letter-sound.mp3");
+     var bgm = new Audio("./assets/media/bgm.mp3");
+    function playletter(){
+            audio.play();
+            }
+
+    bgm.oncanplaythrough = function(){
+        bgm.play();
+        }
+
+    bgm.loop = true;
+
+    bgm.onended = function(){
+        bgm.play();
+                
+}
+
+function displayRandomWords(){
+    let number = Math.round(Math.random()*randomWords.length-1);
+    if(number>=0 && number<=randomWords.length){
+        word.innerText = randomWords[number]
+    }
+}
+
+displayRandomWords()
+
+let isPlay = true;
+
+function stopgame(){
+    
+    if(isPlay){
+        bgm.pause();
+        playpauseicon.classList.remove('fa-pause');
+        playpauseicon.classList.add('fa-play');
+    }else{
+        bgm.play();
+        playpauseicon.classList.remove('fa-play');
+        playpauseicon.classList.add('fa-pause');
+    }
+    isPlay = !isPlay;
+   
+}
+
+
+function goback(){
+    window.location.href = './home.html'
+}
+   </script>
+    
+  
+</body>
+</html>
